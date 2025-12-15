@@ -13,4 +13,22 @@ public class OrderItem : BaseEntity
     public Crust Crust { get; set; } = null!;
     public int Quantity { get; set; }
     public decimal SubtotalPrice { get; set; }
+    public List<OrderItemToppings> Toppings { get; set; } = new();
+
+    public decimal CalculateSubtotalPrice()
+    {
+        decimal toppingsTotal = 0m;
+        if (Toppings == null || Toppings.Count == 0)
+        {
+            return (Pizza.BasePrice + Size.Price);
+        }
+
+        toppingsTotal = Toppings.Sum(t => t.Topping.Price);
+        return (Pizza.BasePrice + Size.Price + toppingsTotal);
+    }
+
+    public decimal GetTotalPrice()
+    {
+        return SubtotalPrice * Quantity;
+    }
 }

@@ -8,6 +8,7 @@ public class PizzaConfiguration: IEntityTypeConfiguration<Pizza>
 {
     public void Configure(EntityTypeBuilder<Pizza> builder)
     {
+        builder.ToTable("Pizzas");
         builder.HasKey(p => p.Id);
 
         builder.Property(p => p.Name)

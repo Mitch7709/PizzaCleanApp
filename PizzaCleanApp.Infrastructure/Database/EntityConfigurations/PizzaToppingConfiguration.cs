@@ -8,6 +8,7 @@ public class PizzaToppingConfiguration : IEntityTypeConfiguration<PizzaTopping>
 {
     public void Configure(EntityTypeBuilder<PizzaTopping> builder)
     {
+        builder.ToTable("PizzaToppings");
         // Composite primary key ensures uniqueness of each Pizza-Topping pair
         builder.HasKey(pt => new { pt.PizzaId, pt.ToppingId });
 

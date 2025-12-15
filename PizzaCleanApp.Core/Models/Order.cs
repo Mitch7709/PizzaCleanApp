@@ -7,9 +7,13 @@ public class Order : BaseEntity
     public long Id { get; set; }
 
     public OrderStatus Status { get; set; }
-    public List<OrderItem> OrderItems { get; set; } = new();
-    public decimal TotalPrice { get; set; } = 0;
+    public List<OrderItem> Items { get; set; } = new();
     public DateTime OrderDate { get; set; }
+
+    public decimal GetTotalPrice()
+    {
+        return Items.Sum(item => item.GetTotalPrice());
+    }
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]

@@ -8,6 +8,7 @@ public class OrderItemToppingsConfiguration : IEntityTypeConfiguration<OrderItem
 {
     public void Configure(EntityTypeBuilder<OrderItemToppings> builder)
     {
+        builder.ToTable("OrderItemToppings");
         builder.HasKey(x => x.Id);
 
         // Deleting an OrderItem should delete its OrderItemToppings

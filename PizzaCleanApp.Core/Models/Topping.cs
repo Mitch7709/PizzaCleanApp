@@ -14,7 +14,7 @@ public class Topping : BaseEntity
     public decimal Price { get; set; }
     public int Calories { get; set; }
     public ToppingCategory CategoryType { get; set; }
-    public bool IsActive { get; set; }
+    public bool IsActive { get; set; } = true;
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]

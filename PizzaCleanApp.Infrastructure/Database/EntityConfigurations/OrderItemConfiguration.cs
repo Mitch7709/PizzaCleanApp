@@ -8,6 +8,7 @@ public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
 {
     public void Configure(EntityTypeBuilder<OrderItem> builder)
     {
+        builder.ToTable("OrderItems");
         builder.HasKey(x => x.Id);
 
         // Deleting an Order should delete its OrderItems

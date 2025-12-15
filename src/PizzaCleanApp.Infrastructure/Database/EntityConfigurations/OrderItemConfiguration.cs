@@ -13,7 +13,7 @@ public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
 
         // Deleting an Order should delete its OrderItems
         builder.HasOne(x => x.Order)
-            .WithMany(o => o.OrderItems)
+            .WithMany(o => o.Items)
             .HasForeignKey(x => x.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
 

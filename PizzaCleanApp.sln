@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36301.6 d17.14
+VisualStudioVersion = 17.14.36301.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaCleanApp.API", "PizzaCleanApp\PizzaCleanApp.API.csproj", "{8A95C9AC-84D3-4DB7-9E3C-39F43BA1665E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaCleanApp.Core", "PizzaCleanApp.Core\PizzaCleanApp.Core.csproj", "{388447CD-F675-4D8C-9955-F206705EFD6A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaCleanApp.API", "src\PizzaCleanApp\PizzaCleanApp.API.csproj", "{3C524D4E-F7F0-07BF-FBA2-53C7C13924CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaCleanApp.Infrastructure", "PizzaCleanApp.Infrastructure\PizzaCleanApp.Infrastructure.csproj", "{039E03C2-FDFF-4265-9A04-5092FF6765F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaCleanApp.Core", "src\PizzaCleanApp.Core\PizzaCleanApp.Core.csproj", "{59CD4F0A-12F4-7FF7-DABB-26F2C17CF4F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaCleanApp.Infrastructure", "src\PizzaCleanApp.Infrastructure\PizzaCleanApp.Infrastructure.csproj", "{45D79580-DF35-5C7D-7722-E35AF4A77264}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,21 +17,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8A95C9AC-84D3-4DB7-9E3C-39F43BA1665E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A95C9AC-84D3-4DB7-9E3C-39F43BA1665E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8A95C9AC-84D3-4DB7-9E3C-39F43BA1665E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A95C9AC-84D3-4DB7-9E3C-39F43BA1665E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{388447CD-F675-4D8C-9955-F206705EFD6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{388447CD-F675-4D8C-9955-F206705EFD6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{388447CD-F675-4D8C-9955-F206705EFD6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{388447CD-F675-4D8C-9955-F206705EFD6A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{039E03C2-FDFF-4265-9A04-5092FF6765F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{039E03C2-FDFF-4265-9A04-5092FF6765F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{039E03C2-FDFF-4265-9A04-5092FF6765F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{039E03C2-FDFF-4265-9A04-5092FF6765F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C524D4E-F7F0-07BF-FBA2-53C7C13924CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C524D4E-F7F0-07BF-FBA2-53C7C13924CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C524D4E-F7F0-07BF-FBA2-53C7C13924CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C524D4E-F7F0-07BF-FBA2-53C7C13924CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59CD4F0A-12F4-7FF7-DABB-26F2C17CF4F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59CD4F0A-12F4-7FF7-DABB-26F2C17CF4F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59CD4F0A-12F4-7FF7-DABB-26F2C17CF4F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59CD4F0A-12F4-7FF7-DABB-26F2C17CF4F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45D79580-DF35-5C7D-7722-E35AF4A77264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45D79580-DF35-5C7D-7722-E35AF4A77264}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45D79580-DF35-5C7D-7722-E35AF4A77264}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45D79580-DF35-5C7D-7722-E35AF4A77264}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3C524D4E-F7F0-07BF-FBA2-53C7C13924CB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{59CD4F0A-12F4-7FF7-DABB-26F2C17CF4F7} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{45D79580-DF35-5C7D-7722-E35AF4A77264} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {06E28F5C-080A-441E-849F-D160356F6685}

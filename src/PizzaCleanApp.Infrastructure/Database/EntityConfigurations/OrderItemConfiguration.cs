@@ -9,28 +9,32 @@ public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
     public void Configure(EntityTypeBuilder<OrderItem> builder)
     {
         builder.ToTable("OrderItems");
-        builder.HasKey(x => x.Id);
+        builder.HasKey(oi => oi.Id);
 
-        // Deleting an Order should delete its OrderItems
-        builder.HasOne(x => x.Order)
-            .WithMany(o => o.Items)
-            .HasForeignKey(x => x.OrderId)
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.Property(oi => oi.SubtotalPrice)
+               .HasPrecision(18, 2);
 
-        // Deleting OrderItem should not affect Pizza/Size/Crust
-        builder.HasOne(x => x.Pizza)
-            .WithMany()
-            .HasForeignKey(x => x.PizzaId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.Property(oi => oi.Quantity)
+               .IsRequired();
 
-        builder.HasOne(x => x.Size)
-            .WithMany()
-            .HasForeignKey(x => x.SizeId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(oi => oi.Order)
+               .WithMany(o => o.Items)
+               .HasForeignKey(oi => oi.OrderId)
+               .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasOne(x => x.Crust)
-            .WithMany()
-            .HasForeignKey(x => x.CrustId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(oi => oi.Pizza)
+               .WithMany()
+               .HasForeignKey(oi => oi.PizzaId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(oi => oi.Size)
+               .WithMany()
+               .HasForeignKey(oi => oi.SizeId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(oi => oi.Crust)
+               .WithMany()
+               .HasForeignKey(oi => oi.CrustId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

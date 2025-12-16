@@ -9,18 +9,22 @@ public class OrderItemToppingsConfiguration : IEntityTypeConfiguration<OrderItem
     public void Configure(EntityTypeBuilder<OrderItemToppings> builder)
     {
         builder.ToTable("OrderItemToppings");
-        builder.HasKey(x => x.Id);
+        builder.HasKey(oit => oit.Id);
 
-        // Deleting an OrderItem should delete its OrderItemToppings
-        builder.HasOne(x => x.OrderItem)
-            .WithMany()
-            .HasForeignKey(x => x.OrderItemId)
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.Property(oit => oit.OrderItemId).IsRequired();
+        builder.Property(oit => oit.ToppingId).IsRequired();
 
-        // Deleting a Topping should not affect OrderItemToppings
-        builder.HasOne(x => x.Topping)
-            .WithMany()
-            .HasForeignKey(x => x.ToppingId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(oit => oit.OrderItem)
+               .WithMany(oi => oi.Toppings)
+               .HasForeignKey(oit => oit.OrderItemId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(oit => oit.Topping)
+               .WithMany()
+               .HasForeignKey(oit => oit.ToppingId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        // Optional: prevent duplicate toppings per order item
+        builder.HasIndex(oit => new { oit.OrderItemId, oit.ToppingId }).IsUnique();
     }
 }

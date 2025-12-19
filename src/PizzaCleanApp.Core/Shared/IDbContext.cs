@@ -5,12 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PizzaCleanApp.Core.Shared
-{
-    public interface IDbContext
-    {
-        DbSet<TEntity> Set<TEntity>() where TEntity : class, IEntity;
+namespace PizzaCleanApp.Core.Shared;
 
-        Task<int> SaveChangesAsync();
-    }
+public interface IDbContext
+{
+    DbSet<TEntity> Set<TEntity>() where TEntity : class, IEntity;
+
+    Task<int> SaveChangesAsync();
 }

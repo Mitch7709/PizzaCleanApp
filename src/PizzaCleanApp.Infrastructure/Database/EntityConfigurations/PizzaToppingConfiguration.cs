@@ -31,5 +31,38 @@ public class PizzaToppingConfiguration : IEntityTypeConfiguration<PizzaTopping>
 
         // Optional: index to speed up lookups by Topping
         builder.HasIndex(pt => pt.ToppingId);
+
+        builder.HasData(
+            new PizzaTopping
+            {
+                PizzaId = 1,
+                ToppingId = 1 // Pepperoni
+            },
+            new PizzaTopping
+            {
+                PizzaId = 2,
+                ToppingId = 1 
+            },
+            new PizzaTopping
+            {
+                PizzaId = 2,
+                ToppingId = 2 // Meatballs
+            },
+            new PizzaTopping
+            {
+                PizzaId = 2,
+                ToppingId = 4 // Mushrooms
+            },
+            new PizzaTopping
+            {
+                PizzaId = 2,
+                ToppingId = 5 // Onions
+            },
+            new PizzaTopping
+            {
+                PizzaId = 2,
+                ToppingId = 6 // Green Peppers
+            }
+        );
     }
 }

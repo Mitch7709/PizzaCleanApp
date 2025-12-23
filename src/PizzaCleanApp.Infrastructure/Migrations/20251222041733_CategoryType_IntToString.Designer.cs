@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PizzaCleanApp.Infrastructure.Database;
 
@@ -11,9 +12,11 @@ using PizzaCleanApp.Infrastructure.Database;
 namespace PizzaCleanApp.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251222041733_CategoryType_IntToString")]
+    partial class CategoryType_IntToString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,28 +222,6 @@ namespace PizzaCleanApp.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pizzas", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            BasePrice = 8.00m,
-                            CreateDate = new DateTime(2025, 12, 31, 2, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Classic pizza with pepperoni slices.",
-                            IsActive = true,
-                            LastUpdated = new DateTime(2025, 12, 31, 2, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "Pepperoni"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            BasePrice = 12.50m,
-                            CreateDate = new DateTime(2025, 12, 31, 2, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Deluxe pizza with a variety of toppings.",
-                            IsActive = true,
-                            LastUpdated = new DateTime(2025, 12, 31, 2, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "Supreme"
-                        });
                 });
 
             modelBuilder.Entity("PizzaCleanApp.Core.Models.PizzaTopping", b =>
@@ -258,38 +239,6 @@ namespace PizzaCleanApp.Infrastructure.Migrations
                     b.HasIndex("ToppingId");
 
                     b.ToTable("PizzaToppings", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            PizzaId = 1L,
-                            ToppingId = 1L
-                        },
-                        new
-                        {
-                            PizzaId = 2L,
-                            ToppingId = 1L
-                        },
-                        new
-                        {
-                            PizzaId = 2L,
-                            ToppingId = 2L
-                        },
-                        new
-                        {
-                            PizzaId = 2L,
-                            ToppingId = 4L
-                        },
-                        new
-                        {
-                            PizzaId = 2L,
-                            ToppingId = 5L
-                        },
-                        new
-                        {
-                            PizzaId = 2L,
-                            ToppingId = 6L
-                        });
                 });
 
             modelBuilder.Entity("PizzaCleanApp.Core.Models.Size", b =>
@@ -318,32 +267,6 @@ namespace PizzaCleanApp.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sizes", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CreateDate = new DateTime(2025, 12, 21, 2, 0, 0, 0, DateTimeKind.Utc),
-                            LastUpdated = new DateTime(2025, 12, 21, 2, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "Small",
-                            Price = 8.00m
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CreateDate = new DateTime(2025, 12, 21, 2, 0, 0, 0, DateTimeKind.Utc),
-                            LastUpdated = new DateTime(2025, 12, 21, 2, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "Medium",
-                            Price = 10.00m
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CreateDate = new DateTime(2025, 12, 21, 2, 0, 0, 0, DateTimeKind.Utc),
-                            LastUpdated = new DateTime(2025, 12, 21, 2, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "Large",
-                            Price = 12.00m
-                        });
                 });
 
             modelBuilder.Entity("PizzaCleanApp.Core.Models.Topping", b =>

@@ -23,6 +23,28 @@ public class PizzaConfiguration: IEntityTypeConfiguration<Pizza>
             .IsRequired()
             .HasPrecision(18, 2);
 
+        builder.HasData(
 
+            new Pizza
+            {
+                Id = 1,
+                Name = "Pepperoni",
+                Description = "Classic pizza with pepperoni slices.",
+                BasePrice = 8.00m,
+                IsActive = true,
+                CreateDate = new DateTime(2025, 12, 31, 2, 0, 0, DateTimeKind.Utc),
+                LastUpdated = new DateTime(2025, 12, 31, 2, 0, 0, DateTimeKind.Utc)
+            },
+            new Pizza
+            {
+                Id = 2,
+                Name = "Supreme",
+                Description = "Deluxe pizza with a variety of toppings.",
+                BasePrice = 12.50m,
+                IsActive = true,
+                CreateDate = new DateTime(2025, 12, 31, 2, 0, 0, DateTimeKind.Utc),
+                LastUpdated = new DateTime(2025, 12, 31, 2, 0, 0, DateTimeKind.Utc)
+            }
+        );
     }
 }

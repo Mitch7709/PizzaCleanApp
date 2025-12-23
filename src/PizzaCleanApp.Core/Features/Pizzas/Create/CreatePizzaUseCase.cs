@@ -13,8 +13,7 @@ public class CreatePizzaUseCase(IDbContext dbContext)
 
         if (existingPizza)
         {
-            // Consider using a Conflict error type if available
-            return Result.Failure(ErrorType.NotFound, "A pizza with the same name already exists.");
+            return Result.Failure(ErrorType.Conflict, "A pizza with the same name already exists.");
         }
 
         var requestedToppingIds = request.ToppingIds?.Distinct().ToArray() ?? Array.Empty<long>();

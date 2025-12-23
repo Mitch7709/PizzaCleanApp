@@ -10,7 +10,8 @@ public enum ErrorType
     NotFound,
     Validationerror,
     ImportError,
-    DataError
+    DataError,
+    Conflict
 }
 
 public class Result

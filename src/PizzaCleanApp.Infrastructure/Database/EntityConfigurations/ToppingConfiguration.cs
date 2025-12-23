@@ -22,7 +22,10 @@ public class ToppingConfiguration : IEntityTypeConfiguration<Topping>
             .IsRequired();
 
         builder.Property(t => t.CategoryType)
-            .IsRequired();
+            .IsRequired()
+            .HasConversion<string>()
+            .HasMaxLength(50)
+            .HasColumnType("varchar(50)");
 
         builder.Property(t => t.IsActive)
             .IsRequired();

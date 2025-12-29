@@ -12,4 +12,4 @@ public record CreatePizzaRequest(
     IReadOnlyCollection<long>? ToppingIds // optional; null treated as empty
 );
 
-public record CreatePizzaResponse(long Id, string Name, string Description);
+public record CreatePizzaResponse(long Id, string Name, string Description, decimal BasePrice, IReadOnlyCollection<long> ToppingIds);

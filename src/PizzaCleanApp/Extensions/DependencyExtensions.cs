@@ -15,6 +15,7 @@ namespace PizzaCleanApp.API.Extensions
             // Register application services here
             services.AddScoped<IDbContext, AppDbContext>();
             services.AddValidatorsFromAssemblyContaining<CreatePizzaValidator>();
+            services.AddValidatorsFromAssemblyContaining<UpdatePizzaValidator>();
 
             services.AddTransient<CreatePizzaUseCase>();
             services.AddTransient<PizzaReadService>();

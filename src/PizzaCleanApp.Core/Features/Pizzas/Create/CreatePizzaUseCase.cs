@@ -59,6 +59,6 @@ public class CreatePizzaUseCase(IDbContext dbContext)
         dbContext.Set<Pizza>().Add(pizza);
         await dbContext.SaveChangesAsync();
 
-        return new CreatePizzaResponse(pizza.Id, pizza.Name, pizza.Description);
+        return new CreatePizzaResponse(pizza.Id, pizza.Name, pizza.Description, pizza.BasePrice, existingActiveToppingIds);
     }
 }

@@ -5,12 +5,8 @@ using PizzaCleanApp.Core.Shared;
 
 namespace PizzaCleanApp.Infrastructure.Database;
 
-public class AppDbContext : DbContext, IDbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options), IDbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
-    {
-        
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

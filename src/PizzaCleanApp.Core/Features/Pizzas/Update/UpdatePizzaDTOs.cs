@@ -5,14 +5,16 @@ using System.Text;
 namespace PizzaCleanApp.Core.Features.Pizzas.Update;
 
 public record UpdatePizzaRequest(
-    long Id,
     string Name,
     string Description,
-    decimal BasePrice
+    decimal BasePrice,
+    bool IsActive = true
 );
 
 public record UpdatePizzaResponse(
     long Id,
     string Name,
-    string Description
+    string Description,
+    decimal BasePrice,
+    bool IsActive = true
 );

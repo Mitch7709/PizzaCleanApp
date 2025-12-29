@@ -8,7 +8,7 @@ namespace PizzaCleanApp.Core.Models;
 public enum ErrorType
 {
     NotFound,
-    Validationerror,
+    ValidationError,
     ImportError,
     DataError,
     Conflict

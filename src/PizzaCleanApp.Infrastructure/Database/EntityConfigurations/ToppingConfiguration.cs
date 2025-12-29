@@ -98,6 +98,17 @@ public class ToppingConfiguration : IEntityTypeConfiguration<Topping>
                 IsActive = true,
                 CreateDate = currentTime,
                 LastUpdated = currentTime
+            },
+            new Topping
+            {
+                Id = 7,
+                Name = "Pineapple",
+                Price = 1.20m,
+                Calories = 10,
+                CategoryType = ToppingCategory.Vegetable,
+                IsActive = false,
+                CreateDate = currentTime,
+                LastUpdated = currentTime
             }
         );
     }

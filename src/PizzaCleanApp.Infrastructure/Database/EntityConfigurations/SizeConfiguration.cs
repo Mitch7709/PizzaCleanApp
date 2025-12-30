@@ -15,6 +15,9 @@ public class SizeConfiguration : IEntityTypeConfiguration<Size>
             .IsRequired()
             .HasMaxLength(Size.MaxLength.Name);
 
+        builder.Property(s => s.Calories)
+            .IsRequired();
+
         builder.Property(s => s.Price)
             .HasPrecision(18, 2);
 
@@ -26,6 +29,7 @@ public class SizeConfiguration : IEntityTypeConfiguration<Size>
                 Id = 1,
                 Name = "Small",
                 Price = 8.00m,
+                Calories = 186,
                 CreateDate = currentTime,
                 LastUpdated = currentTime
             },
@@ -34,6 +38,7 @@ public class SizeConfiguration : IEntityTypeConfiguration<Size>
                 Id = 2,
                 Name = "Medium",
                 Price = 10.00m,
+                Calories = 220,
                 CreateDate = currentTime,
                 LastUpdated = currentTime
             },
@@ -42,6 +47,7 @@ public class SizeConfiguration : IEntityTypeConfiguration<Size>
                 Id = 3,
                 Name = "Large",
                 Price = 12.00m,
+                Calories = 286,
                 CreateDate = currentTime,
                 LastUpdated = currentTime
             }

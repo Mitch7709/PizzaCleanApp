@@ -7,11 +7,6 @@ public class UpdatePizzaUseCase(IDbContext dbContext)
 {
     public async Task<Result<UpdatePizzaResponse>> ExecuteAsync(long id, UpdatePizzaRequest request)
     {
-        if (request is null)
-        {
-            return Result.Failure(ErrorType.ValidationError, "UpdatePizzaRequest cannot be null");
-        }
-
         var pizza = await dbContext.Set<Pizza>().FindAsync(id);
         if (pizza is null)
         {

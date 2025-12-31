@@ -40,13 +40,29 @@ namespace PizzaCleanApp.UnitTests.Pizzas
         }
 
         [Fact]
-        public async Task Pizza_is_not_updated_when_name_is_empty()
+        public async Task Pizza_fails_validation_when_name_is_empty()
         {
             var validator = new UpdatePizzaValidator();
             var request = new UpdatePizzaRequest
             (
                 Name: "",
                 Description: "Description with empty name.",
+                BasePrice: 9.99m,
+                IsActive: true
+            );
+            var result = await validator.TestValidateAsync(request);
+            result.ShouldHaveValidationErrorFor(r => r.Name);
+        }
+
+        [Fact]
+        public async Task Pizza_fails_validation_when_name_exceeds_max_length()
+        {
+            var validator = new UpdatePizzaValidator();
+            var longName = new string('A', 101);
+            var request = new UpdatePizzaRequest
+            (
+                Name: longName,
+                Description: "Description with long name.",
                 BasePrice: 9.99m,
                 IsActive: true
             );

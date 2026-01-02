@@ -1,16 +1,97 @@
-﻿using PizzaCleanApp.Core.Features.Pizzas.Create;
+﻿using FluentValidation.TestHelper;
+using PizzaCleanApp.Core.Features.Pizzas.Create;
 using PizzaCleanApp.Core.Models;
 using PizzaCleanApp.Core.Shared;
 using PizzaCleanApp.UnitTests.TestSetup;
 using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PizzaCleanApp.UnitTests.Pizzas;
 
 public class CreatePizzaUseCaseTests
 {
+    #region Validation outlines
+
+    [Fact]
+    public async Task Pizza_fails_validation_when_name_is_empty()
+    {
+        var validator = new CreatePizzaValidator();
+        var request = new CreatePizzaRequest
+        (
+            Name: "",
+            Description: "Description with empty name.",
+            BasePrice: 9.99m,
+            ToppingIds: new long[] { 1 }
+        );
+
+        var result = await validator.TestValidateAsync(request);
+
+        result.ShouldHaveValidationErrorFor(r => r.Name);
+    }
+
+    [Fact]
+    public async Task Pizza_fails_validation_when_name_exceeds_max_length()
+    {
+        var validator = new CreatePizzaValidator();
+        var longName = new string('A', 101);
+        var request = new CreatePizzaRequest
+        (
+            Name: longName,
+            Description: "Description with long name.",
+            BasePrice: 9.99m,
+            ToppingIds: new long[] { 1 }
+        );
+        var result = await validator.TestValidateAsync(request);
+        result.ShouldHaveValidationErrorFor(r => r.Name);
+    }
+
+    [Fact]
+    public async Task Pizza_fails_validation_when_description_exceeds_max_length()
+    {
+        var validator = new CreatePizzaValidator();
+        var longDescription = new string('B', 501);
+        var request = new CreatePizzaRequest
+        (
+            Name: "Valid Name",
+            Description: longDescription,
+            BasePrice: 9.99m,
+            ToppingIds: new long[] { 1 }
+        );
+        var result = await validator.TestValidateAsync(request);
+        result.ShouldHaveValidationErrorFor(r => r.Description);
+    }
+
+    [Fact]
+    public async Task Pizza_fails_validation_when_base_price_is_negative()
+    {
+        var validator = new CreatePizzaValidator();
+        var request = new CreatePizzaRequest
+        (
+            Name: "Negative Price Pizza",
+            Description: "Description with negative price.",
+            BasePrice: -5.00m,
+            ToppingIds: new long[] { 1 }
+        );
+        var result = await validator.TestValidateAsync(request);
+        result.ShouldHaveValidationErrorFor(r => r.BasePrice);
+    }
+
+    [Fact]
+    public async Task Pizza_fails_validation_when_topping_id_is_negative()
+    {
+        var validator = new CreatePizzaValidator();
+        var request = new CreatePizzaRequest
+        (
+            Name: "Invalid Topping Pizza",
+            Description: "Description with invalid topping id.",
+            BasePrice: 9.99m,
+            ToppingIds: new long[] { -1 }
+        );
+        var result = await validator.TestValidateAsync(request);
+        result.ShouldHaveValidationErrorFor(r => r.ToppingIds);
+    }
+
+    #endregion
+
     #region Failure outlines
 
     [Fact]
@@ -145,7 +226,7 @@ public class CreatePizzaUseCaseTests
     }
 
     [Fact]
-    public async Task Pizza_IsActive_is_true_and_BasePrice_is_persisted_on_success()
+    public async Task Pizza_is_created_and_BasePrice_is_persisted_on_success()
     {
         using var builder = new DBBuilder();
         var context = builder.CreateDBContext();
@@ -163,7 +244,7 @@ public class CreatePizzaUseCaseTests
         result.IsSuccess.ShouldBeTrue();
         var response = result.Value;
         response.Id.ShouldBeGreaterThan(0);
-        response.BasePrice.ShouldBe(10.99m);
+        response.BasePrice.ShouldBe(10.99m);        
     }
 
     [Fact]
@@ -232,7 +313,6 @@ public class CreatePizzaUseCaseTests
         response.Id.ShouldBeGreaterThan(0);
         response.ToppingIds.Count.ShouldBe(3); // Assuming toppings 1, 2, and 3 are unique and added
     }
-
 
     #endregion
 

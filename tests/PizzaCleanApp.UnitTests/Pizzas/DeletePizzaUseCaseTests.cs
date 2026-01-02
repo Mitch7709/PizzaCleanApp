@@ -19,6 +19,17 @@ public class DeletePizzaUseCaseTests
         result.ErrorType.ShouldBe(ErrorType.NotFound);
     }
 
+    [Fact]
+    public async Task Pizza_is_deleted_when_id_exists()
+    {
+        using var builder = new DBBuilder();
+        var context = builder.CreateDBContext();
+        var deletePizzaUseCase = CreateUseCase(context);
+
+        Result result = await deletePizzaUseCase.ExecuteAsync(1);
+        result.IsSuccess.ShouldBeTrue();
+    }
+
     private static DeletePizzaUseCase CreateUseCase(IDbContext context)
     {
         return new DeletePizzaUseCase(context);

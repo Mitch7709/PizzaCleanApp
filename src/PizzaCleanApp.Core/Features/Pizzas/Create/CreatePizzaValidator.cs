@@ -21,10 +21,6 @@ public class CreatePizzaValidator : AbstractValidator<CreatePizzaRequest>
         {
             RuleForEach(x => x.ToppingIds!)
                 .GreaterThan(0).WithMessage("Topping id must be greater than zero.");
-
-            RuleFor(x => x.ToppingIds!)
-                .Must(ids => ids.Distinct().Count() == ids.Count)
-                .WithMessage("Duplicate toppings are not allowed.");
         });
     }
 }

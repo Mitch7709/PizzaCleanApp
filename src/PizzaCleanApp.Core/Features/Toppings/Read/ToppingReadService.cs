@@ -13,11 +13,18 @@ public class ToppingReadService(IDbContext dbContext)
             .ToListAsync();
     }
 
-    public async Task<ToppingResponse?> GetByIdAsync(long id)
+    public async Task<Result<ToppingResponse>> GetByIdAsync(long id)
     {
-        return await dbContext.Set<Topping>()
+        var topping = await dbContext.Set<Topping>()
             .Where(t => t.Id == id)
             .Select(t => new ToppingResponse(t.Id, t.Name, t.Price, t.Calories, t.CategoryType, t.IsActive))
             .FirstOrDefaultAsync();
+
+        if (topping == null)
+        {
+            return Result.Failure(ErrorType.NotFound, $"Topping with id {id} not found");
+        }
+
+        return topping;
     }
 }

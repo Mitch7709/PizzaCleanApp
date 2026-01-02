@@ -29,9 +29,9 @@ public class SizeModule : IModule
         group.MapDelete("/{id}", DeleteSize);
     }
 
-    private static async Task<Ok<IEnumerable<SizeResponse>>> GetAllSizes(int? page, int? pageSize, SizeReadService service)
+    private static async Task<Ok<IReadOnlyList<SizeResponse>>> GetAllSizes(SizeReadService service)
     {
-        var result = await service.GetAllAsync(page.GetValueOrDefault(), pageSize.GetValueOrDefault());
+        var result = await service.GetAllAsync();
         return TypedResults.Ok(result);
     }
 

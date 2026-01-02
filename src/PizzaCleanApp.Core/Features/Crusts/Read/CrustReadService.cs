@@ -13,11 +13,18 @@ public class CrustReadService(IDbContext dbContext)
             .ToListAsync();
     }
 
-    public async Task<CrustResponse?> GetByIdAsync(long id)
+    public async Task<Result<CrustResponse>> GetByIdAsync(long id)
     {
-        return await dbContext.Set<Crust>()
+        var crust = await dbContext.Set<Crust>()
             .Where(c => c.Id == id)
             .Select(c => new CrustResponse(c.Id, c.Name, c.Calories, c.IsActive))
             .FirstOrDefaultAsync();
+
+        if (crust == null)
+        {
+            return Result.Failure(ErrorType.NotFound, $"Crust with id {id} not found");
+        }
+
+        return crust;
     }
 }

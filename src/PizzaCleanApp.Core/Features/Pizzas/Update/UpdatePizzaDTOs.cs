@@ -8,7 +8,8 @@ public record UpdatePizzaRequest(
     string Name,
     string Description,
     decimal BasePrice,
-    bool IsActive = true
+    bool IsActive = true,
+    IReadOnlyCollection<long>? ToppingIds = null
 );
 
 public record UpdatePizzaResponse(
@@ -16,5 +17,6 @@ public record UpdatePizzaResponse(
     string Name,
     string Description,
     decimal BasePrice,
-    bool IsActive = true
+    bool IsActive = true,
+    IReadOnlyCollection<long>? ToppingIds = null
 );

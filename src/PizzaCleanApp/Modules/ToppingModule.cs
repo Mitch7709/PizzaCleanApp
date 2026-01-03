@@ -26,7 +26,7 @@ public class ToppingModule : IModule
         ((RouteHandlerBuilder)group.MapPut("/{id}", UpdateTopping))
             .Validator<UpdateToppingRequest>();
 
-        group.MapDelete("/{id}", DeleteTopping);
+        //group.MapDelete("/{id}", DeleteTopping);
     }
 
     private static async Task<Ok<IReadOnlyList<ToppingResponse>>> GetAllToppings(ToppingReadService service)
@@ -62,14 +62,14 @@ public class ToppingModule : IModule
             : TypedResults.NotFound(result.ErrorMessage);
     }
 
-    private static async Task<Results<NoContent, NotFound<string>, BadRequest<string>>> DeleteTopping(long id, DeleteToppingUseCase useCase)
-    {
-        var result = await useCase.ExecuteAsync(id);
-        if (result.IsSuccess)
-            return TypedResults.NoContent();
+    //private static async Task<Results<NoContent, NotFound<string>, BadRequest<string>>> DeleteTopping(long id, DeleteToppingUseCase useCase)
+    //{
+    //    var result = await useCase.ExecuteAsync(id);
+    //    if (result.IsSuccess)
+    //        return TypedResults.NoContent();
 
-        return result.ErrorType == ErrorType.NotFound
-            ? TypedResults.NotFound(result.ErrorMessage)
-            : TypedResults.BadRequest(result.ErrorMessage);
-    }
+    //    return result.ErrorType == ErrorType.NotFound
+    //        ? TypedResults.NotFound(result.ErrorMessage)
+    //        : TypedResults.BadRequest(result.ErrorMessage);
+    //}
 }

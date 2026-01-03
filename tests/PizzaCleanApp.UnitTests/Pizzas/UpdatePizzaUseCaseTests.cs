@@ -1,4 +1,5 @@
 ﻿using FluentValidation.TestHelper;
+using Microsoft.EntityFrameworkCore;
 using PizzaCleanApp.Core.Features.Pizzas.Update;
 using PizzaCleanApp.Core.Models;
 using PizzaCleanApp.Core.Shared;
@@ -91,6 +92,25 @@ namespace PizzaCleanApp.UnitTests.Pizzas
             result.ErrorType.ShouldBe(ErrorType.ValidationError);
         }
 
+        [Fact]
+        public async Task Pizza_is_not_updated_when_topping_does_not_exist()
+        {
+            using var builder = new DBBuilder();
+            var context = builder.CreateDBContext();
+            var updatePizzaUseCase = CreateUseCase(context);
+            var request = new UpdatePizzaRequest
+            (
+                Name: "Margherita",
+                Description: "Margherita pizza with invalid topping.",
+                BasePrice: 10.99m,
+                IsActive: true,
+                ToppingIds: new List<long> { 999 } // Non-existent topping ID
+            );
+            Result<UpdatePizzaResponse> result = await updatePizzaUseCase.ExecuteAsync(1, request);
+            result.IsSuccess.ShouldBeFalse();
+            result.ErrorType.ShouldBe(ErrorType.NotFound);
+        }
+
         #endregion
 
         #region Success Outlines
@@ -114,6 +134,30 @@ namespace PizzaCleanApp.UnitTests.Pizzas
             result.Value.Description.ShouldBe("Updated description for Margherita.");
             result.Value.BasePrice.ShouldBe(11.99m);
             result.Value.IsActive.ShouldBeFalse();
+        }
+
+        [Fact]
+        public async Task Pizza_is_updated_with_new_toppings_when_request_is_valid()
+        {
+            using var builder = new DBBuilder();
+            var context = builder.CreateDBContext();
+            var updatePizzaUseCase = CreateUseCase(context);
+            var request = new UpdatePizzaRequest
+            (
+                Name: "Pepperoni",
+                Description: "Pepperoni pizza with extra toppings.",
+                BasePrice: 13.99m,
+                IsActive: true,
+                ToppingIds: new List<long> { 1, 2, 3 }
+            );
+            Result<UpdatePizzaResponse> result = await updatePizzaUseCase.ExecuteAsync(1, request);
+            result.IsSuccess.ShouldBeTrue();
+            var updatedPizza = await context.Set<Pizza>()
+                .Include(p => p.PizzaToppings)
+                .FirstOrDefaultAsync(p => p.Id == 1);
+            updatedPizza.ShouldNotBeNull();
+            updatedPizza!.PizzaToppings.Count.ShouldBe(3);
+            updatedPizza.PizzaToppings.Select(pt => pt.ToppingId).ShouldBe(new List<long> { 1, 2, 3 });
         }
 
         #endregion

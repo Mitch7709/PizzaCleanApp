@@ -21,7 +21,8 @@ public class PizzaReadService(IDbContext dbContext)
                 p.Name,
                 p.Description,
                 p.BasePrice,
-                p.IsActive
+                p.IsActive,
+                p.PizzaToppings.Select(pt => pt.ToppingId).ToList()
             ))
             .ToListAsync();
     }
@@ -36,7 +37,8 @@ public class PizzaReadService(IDbContext dbContext)
                 p.Name,
                 p.Description,
                 p.BasePrice,
-                p.IsActive
+                p.IsActive,
+                p.PizzaToppings.Select(pt => pt.ToppingId).ToList()
             ))
             .FirstOrDefaultAsync();
 

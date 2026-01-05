@@ -9,8 +9,9 @@ public class Order : BaseEntity
     public OrderStatus Status { get; set; }
     public List<OrderItem> Items { get; set; } = new();
     public DateTime OrderDate { get; set; }
+    public decimal TotalPrice { get; set; }
 
-    public decimal GetTotalPrice()
+    public decimal GetTotalOrderPrice()
     {
         return Items.Sum(item => item.GetTotalPrice());
     }

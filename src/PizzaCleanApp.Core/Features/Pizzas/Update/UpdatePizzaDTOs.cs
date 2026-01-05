@@ -17,6 +17,5 @@ public record UpdatePizzaResponse(
     string Name,
     string Description,
     decimal BasePrice,
-    bool IsActive = true,
-    IReadOnlyCollection<long>? ToppingIds = null
+    bool IsActive = true
 );

@@ -9,7 +9,7 @@ public class OrderItemToppingsConfiguration : IEntityTypeConfiguration<OrderItem
     public void Configure(EntityTypeBuilder<OrderItemToppings> builder)
     {
         builder.ToTable("OrderItemToppings");
-        builder.HasKey(oit => oit.Id);
+        builder.HasKey(oit => new { oit.OrderItemId, oit.ToppingId });
 
         builder.Property(oit => oit.OrderItemId).IsRequired();
         builder.Property(oit => oit.ToppingId).IsRequired();

@@ -8,7 +8,6 @@ namespace PizzaCleanApp.Core.Models;
 
 public class OrderItemToppings
 {
-    public long Id { get; set; }
     public long OrderItemId { get; set; }
     public OrderItem OrderItem { get; set; } = null!;
     public long ToppingId { get; set; }

@@ -9,15 +9,15 @@ namespace PizzaCleanApp.Core.Features.Orders.AddOrderItem
 {
     public class AddOrderItemUseCase(IDbContext dbContext)
     {
-        public async Task Execute(int orderId, AddOrderItemRequest request)
+        public async Task Execute(AddOrderItemRequest request)
         {
             var order = await dbContext.Set<Order>()
                 .Include(o => o.Items)
-                .FirstOrDefaultAsync(o => o.Id == orderId);
+                .FirstOrDefaultAsync(o => o.Id == request.OrderId);
 
             if (order == null)
             {
-                order = new Order { Id = orderId, OrderDate = DateTime.UtcNow };
+                order = new Order { Id = request.OrderId, OrderDate = DateTime.UtcNow };
                 dbContext.Set<Order>().Add(order);
             }
 

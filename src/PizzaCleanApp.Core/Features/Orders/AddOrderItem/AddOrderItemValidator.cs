@@ -9,10 +9,10 @@ namespace PizzaCleanApp.Core.Features.Orders.AddOrderItem
     {
         public AddOrderItemValidator()
         {
-            RuleFor(x => x.PizzaId).GreaterThan(0);
-            RuleFor(x => x.Quantity).GreaterThan(0);
-            RuleFor(x => x.SizeId).GreaterThan(0);
-            RuleFor(x => x.CrustId).GreaterThan(0);
+            RuleFor(x => x.PizzaId).NotNull().GreaterThan(0);
+            RuleFor(x => x.Quantity).NotNull().GreaterThan(0);
+            RuleFor(x => x.SizeId).NotNull().GreaterThan(0);
+            RuleFor(x => x.CrustId).NotNull().GreaterThan(0);
         }
     }
 }

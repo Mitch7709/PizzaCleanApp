@@ -17,6 +17,7 @@ using PizzaCleanApp.Core.Features.Toppings.Create;
 using PizzaCleanApp.Core.Features.Toppings.Update;
 using PizzaCleanApp.Core.Features.Toppings.Read;
 using PizzaCleanApp.Core.Features.Toppings.Delete;
+using PizzaCleanApp.Core.Features.Orders.AddOrderItem;
 
 namespace PizzaCleanApp.API.Extensions
 {
@@ -56,6 +57,9 @@ namespace PizzaCleanApp.API.Extensions
             services.AddTransient<UpdateToppingUseCase>();
             services.AddTransient<ToppingReadService>();
             services.AddTransient<DeleteToppingUseCase>();
+
+            services.AddValidatorsFromAssemblyContaining<AddOrderItemValidator>();
+            services.AddTransient<AddOrderItemUseCase>();
 
             return services;
         }

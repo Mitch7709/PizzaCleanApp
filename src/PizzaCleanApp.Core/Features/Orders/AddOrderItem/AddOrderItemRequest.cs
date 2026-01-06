@@ -5,6 +5,7 @@ using System.Text;
 namespace PizzaCleanApp.Core.Features.Orders.AddOrderItem
 {
     public record AddOrderItemRequest(
+        long OrderId,
         long PizzaId,
         int Quantity,
         long SizeId,

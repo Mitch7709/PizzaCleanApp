@@ -10,6 +10,8 @@ namespace PizzaCleanApp.UnitTests.Orders;
 
 public class AddOrderItemUseCaseTests
 {
+    #region Success Outlines
+
     [Fact]
     public async Task Create_new_order_when_orderitem_is_added()
     {
@@ -18,6 +20,7 @@ public class AddOrderItemUseCaseTests
         var useCase = CreateUseCase(context);
 
         var request = new AddOrderItemRequest(
+            OrderId: 1,
             PizzaId: 1,
             Quantity: 1,
             SizeId: 1,
@@ -25,8 +28,10 @@ public class AddOrderItemUseCaseTests
             ToppingIds: new List<long> { 1, 2 }
         );
 
-        await useCase.Execute(1, request);
+        await useCase.Execute(request);
     }
+
+    #endregion
 
     private static AddOrderItemUseCase CreateUseCase(IDbContext dbContext)
         => new(dbContext);

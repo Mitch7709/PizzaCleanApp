@@ -12,4 +12,10 @@ namespace PizzaCleanApp.Core.Features.Orders.AddOrderItem
         long CrustId,
         IReadOnlyCollection<long>? ToppingIds = null
     );
+
+    public record AddOrderItemResponse(
+        long OrderId,
+        DateTime OrderDate,
+        decimal TotalPrice
+    );
 }

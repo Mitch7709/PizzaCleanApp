@@ -15,7 +15,7 @@ public class OrderItemToppingsConfiguration : IEntityTypeConfiguration<OrderItem
         builder.Property(oit => oit.ToppingId).IsRequired();
 
         builder.HasOne(oit => oit.OrderItem)
-               .WithMany(oi => oi.Toppings)
+               .WithMany(oi => oi.OrderToppings)
                .HasForeignKey(oit => oit.OrderItemId)
                .OnDelete(DeleteBehavior.Cascade);
 

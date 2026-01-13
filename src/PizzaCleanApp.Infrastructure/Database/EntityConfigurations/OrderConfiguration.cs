@@ -11,6 +11,9 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.ToTable("Orders");
         builder.HasKey(o => o.Id);
 
+        builder.Property(o => o.Id)
+            .ValueGeneratedOnAdd();
+
         builder.Property(o => o.TotalPrice)
                .HasPrecision(18, 2);
     }

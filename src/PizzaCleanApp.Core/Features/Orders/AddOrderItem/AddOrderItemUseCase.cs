@@ -1,15 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PizzaCleanApp.Core.Models;
 using PizzaCleanApp.Core.Shared;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PizzaCleanApp.Core.Features.Orders.AddOrderItem
 {
     public class AddOrderItemUseCase(IDbContext dbContext)
     {
-        public async Task Execute(AddOrderItemRequest request)
+        public async Task<Result<AddOrderItemResponse>> Execute(AddOrderItemRequest request)
         {
             var order = await dbContext.Set<Order>()
                 .Include(o => o.Items)
@@ -17,22 +14,16 @@ namespace PizzaCleanApp.Core.Features.Orders.AddOrderItem
 
             if (order == null)
             {
-                order = new Order { Id = request.OrderId, OrderDate = DateTime.UtcNow };
+                order = new Order { OrderDate = DateTime.UtcNow };
                 dbContext.Set<Order>().Add(order);
             }
 
-            var pizza = await dbContext.Set<Pizza>().FindAsync(request.PizzaId);
+            var pizza = await dbContext.Set<Pizza>().Include(p => p.PizzaToppings).FirstOrDefaultAsync(p => p.Id == request.PizzaId);
             var size = await dbContext.Set<Size>().FindAsync(request.SizeId);
             var crust = await dbContext.Set<Crust>().FindAsync(request.CrustId);
 
-            if (pizza is null) throw new InvalidOperationException($"Pizza {request.PizzaId} not found.");
-            if (size is null) throw new InvalidOperationException($"Size {request.SizeId} not found.");
-            if (crust is null) throw new InvalidOperationException($"Crust {request.CrustId} not found.");
-
-
             var item = new OrderItem
             {
-                OrderId = order.Id,
                 PizzaId = request.PizzaId,
                 Pizza = pizza,
                 Quantity = request.Quantity,
@@ -44,19 +35,21 @@ namespace PizzaCleanApp.Core.Features.Orders.AddOrderItem
 
             if (request.ToppingIds is not null && request.ToppingIds.Count > 0)
             {
+                // Get toppings that are not already included in the pizza
+                var toppingsNotInPizza = request.ToppingIds.Except(
+                    pizza.PizzaToppings.Select(pt => pt.ToppingId));
+                
                 var toppings = await dbContext.Set<Topping>()
-                    .Where(t => request.ToppingIds.Contains(t.Id))
+                    .Where(t => toppingsNotInPizza.Contains(t.Id))
                     .ToListAsync();
 
-                foreach (var topping in toppings)
-                {
-                    item.Toppings.Add(new OrderItemToppings
+                item.OrderToppings.AddRange(
+                    toppings.Select(t => new OrderItemToppings
                     {
-                        OrderItemId = item.Id,
-                        ToppingId = topping.Id,
-                        Topping = topping
-                    });
-                }
+                        ToppingId = t.Id,
+                        Topping = t
+                    })
+                );
             }
 
             item.SubtotalPrice = item.CalculateSubtotalPrice();
@@ -66,6 +59,12 @@ namespace PizzaCleanApp.Core.Features.Orders.AddOrderItem
             order.TotalPrice = order.GetTotalOrderPrice();
 
             await dbContext.SaveChangesAsync();
+
+            return new AddOrderItemResponse(
+                OrderId: order.Id,
+                OrderDate: order.OrderDate,
+                TotalPrice: order.TotalPrice
+            );
         }
     }
 }

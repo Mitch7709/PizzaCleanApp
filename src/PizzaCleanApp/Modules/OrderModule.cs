@@ -24,10 +24,12 @@ namespace PizzaCleanApp.API.Modules
                 : TypedResults.NotFound(result.ErrorMessage);
         }
 
-        private static async Task<Created> AddItemToOrder(AddOrderItemRequest request, AddOrderItemUseCase useCase)
+        private static async Task<Results<Ok<AddOrderItemResponse>, NotFound<string>>> AddItemToOrder(AddOrderItemRequest request, AddOrderItemUseCase useCase)
         {
-            await useCase.Execute(request);
-            return TypedResults.Created();
+            var result = await useCase.Execute(request);
+            return result.IsSuccess
+                ? TypedResults.Ok(result.Value)
+                : TypedResults.NotFound(result.ErrorMessage);
         }
     }
 }

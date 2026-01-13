@@ -21,7 +21,8 @@ namespace PizzaCleanApp.Core.Features.Orders.Read
                 .Include(i => i.Pizza)
                 .Include(i => i.Size)
                 .Include(i => i.Crust)
-                .Include(i => i.Toppings)
+                .Include(i => i.OrderToppings)
+                    .ThenInclude(ot => ot.Topping)
                 .Where(i => i.OrderId == orderId)
                 .ToListAsync();
 
@@ -33,7 +34,7 @@ namespace PizzaCleanApp.Core.Features.Orders.Read
                     item.Quantity,
                     item.Size.Name,
                     item.Crust.Name,
-                    item.Toppings.Select(t => t.Topping.Name).ToList()
+                    item.OrderToppings.Select(t => t.Topping.Name).ToList()
                     // Add other properties as needed
                 ))
                 .ToList()

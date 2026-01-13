@@ -1,10 +1,8 @@
-﻿using PizzaCleanApp.Core.Features.Crusts.Create;
-using PizzaCleanApp.Core.Features.Orders.AddOrderItem;
+﻿using PizzaCleanApp.Core.Features.Orders.AddOrderItem;
+using PizzaCleanApp.Core.Models;
 using PizzaCleanApp.Core.Shared;
 using PizzaCleanApp.UnitTests.TestSetup;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Shouldly;
 
 namespace PizzaCleanApp.UnitTests.Orders;
 
@@ -28,7 +26,9 @@ public class AddOrderItemUseCaseTests
             ToppingIds: new List<long> { 1, 2 }
         );
 
-        await useCase.Execute(request);
+        Result<AddOrderItemResponse> result = await useCase.Execute(request);
+
+        result.IsSuccess.ShouldBeTrue();
     }
 
     #endregion

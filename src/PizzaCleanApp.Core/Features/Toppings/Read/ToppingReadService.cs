@@ -9,6 +9,7 @@ public class ToppingReadService(IDbContext dbContext)
     public async Task<IReadOnlyList<ToppingResponse>> GetAllAsync()
     {
         return await dbContext.Set<Topping>()
+            .AsNoTracking()
             .Select(t => new ToppingResponse(t.Id, t.Name, t.Price, t.Calories, t.CategoryType, t.IsActive))
             .ToListAsync();
     }

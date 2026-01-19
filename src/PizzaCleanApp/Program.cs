@@ -8,13 +8,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer()
                 .AddSwaggerGen()
+                .AddHttpContextAccessor()
                 .AddCustomConfiguration(builder.Configuration)
                 .AddDatabase()
+                .AddSecurity(builder.Configuration)
                 .AddDependencyInjection();
 
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+using var scope = app.Services.CreateScope();
+var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+dbContext.Database.Migrate();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -23,7 +29,11 @@ if (app.Environment.IsDevelopment())
        .UseSwaggerUI();
 }
 
-app.UseDatabase()
+app.UseHttpsRedirection()
+    .UseCors(Security.CorsPolicy)
+    .UseAuthentication()
+    .UseAuthorization()
+    .UseDatabase()
     .UseMinimalApiEndpoints();
 
 app.UseHttpsRedirection();

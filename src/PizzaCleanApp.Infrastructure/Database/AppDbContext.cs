@@ -1,12 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PizzaCleanApp.Core.Models;
 using PizzaCleanApp.Core.Shared;
 
 namespace PizzaCleanApp.Infrastructure.Database;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options), IDbContext
+public class AppDbContext : IdentityDbContext<AppUser>, IDbContext
 {
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {
+        
+    }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

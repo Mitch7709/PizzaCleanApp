@@ -19,6 +19,10 @@ using PizzaCleanApp.Core.Features.Toppings.Read;
 using PizzaCleanApp.Core.Features.Toppings.Delete;
 using PizzaCleanApp.Core.Features.Orders.AddOrderItem;
 using PizzaCleanApp.Core.Features.Orders.Read;
+using PizzaCleanApp.Core.Features.Users.Register;
+using PizzaCleanApp.Core.Features.Users.Login;
+using PizzaCleanApp.Core.Features.Users;
+using PizzaCleanApp.Infrastructure.Identity;
 
 namespace PizzaCleanApp.API.Extensions
 {
@@ -28,8 +32,13 @@ namespace PizzaCleanApp.API.Extensions
         {
             // Register application services here
             services.AddScoped<IDbContext, AppDbContext>();
-            
-            
+
+            services.AddValidatorsFromAssemblyContaining<RegisterValidator>();
+            services.AddTransient<RegisterUseCase>();
+            services.AddValidatorsFromAssemblyContaining<LoginValidator>();
+            services.AddTransient<LoginUseCase>();
+            services.AddTransient<ITokenService, TokenService>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddValidatorsFromAssemblyContaining<CreatePizzaValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdatePizzaValidator>();

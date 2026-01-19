@@ -18,7 +18,7 @@ public class Result
 {
     public bool IsSuccess { get; set; }
 
-    [MemberNotNullWhen(false, nameof(ErrorType))]
+    [MemberNotNullWhen(true, nameof(ErrorType))]
     public bool IsFailure => !IsSuccess;
     public ErrorType? ErrorType { get; }
     public string ErrorMessage { get; }

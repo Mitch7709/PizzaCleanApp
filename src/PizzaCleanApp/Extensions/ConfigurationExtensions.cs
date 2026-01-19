@@ -1,4 +1,5 @@
 ﻿using PizzaCleanApp.API.Configuration;
+using PizzaCleanApp.Infrastructure.Identity;
 
 namespace PizzaCleanApp.API.Extensions;
 
@@ -8,6 +9,10 @@ public static class ConfigurationExtensions
     {
         services.AddOptions<DBOptions>()
             .Bind(configuration.GetSection("Database"))
+            .ValidateDataAnnotations();
+
+        services.AddOptions<JwtOptions>()
+            .Bind(configuration.GetSection("Jwt"))
             .ValidateDataAnnotations();
 
         return services;

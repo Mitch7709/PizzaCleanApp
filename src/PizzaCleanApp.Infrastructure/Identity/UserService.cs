@@ -43,7 +43,7 @@ namespace PizzaCleanApp.Infrastructure.Identity
                 return user.Id;
             }
 
-            return Result.Failure(ErrorType.DataError, result.Errors.FirstOrDefault()?.Description ?? "Registration failed");
+            return Result.Failure(ErrorType.DataError, result.Errors.FirstOrDefault()?.Description ?? "User registration failed");
         }
     }
 }

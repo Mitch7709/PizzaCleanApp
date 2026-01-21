@@ -20,10 +20,10 @@ public class CrustModule : IModule
 
         group.MapGet("/{id}", GetCrustById);
 
-        ((RouteHandlerBuilder)group.MapPost("", CreateCrust))
+        group.MapPost("", CreateCrust)
             .Validator<CreateCrustRequest>();
 
-        ((RouteHandlerBuilder)group.MapPut("/{id}", UpdateCrust))
+        group.MapPut("/{id}", UpdateCrust)
             .Validator<UpdateCrustRequest>();
 
         group.MapDelete("/{id}", DeleteCrust);

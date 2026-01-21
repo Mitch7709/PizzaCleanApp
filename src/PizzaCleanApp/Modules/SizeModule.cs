@@ -20,10 +20,10 @@ public class SizeModule : IModule
 
         group.MapGet("/{id}", GetSizeById);
 
-        ((RouteHandlerBuilder)group.MapPost("", CreateSize))
+        group.MapPost("", CreateSize)
             .Validator<CreateSizeRequest>();
 
-        ((RouteHandlerBuilder)group.MapPut("/{id}", UpdateSize))
+        group.MapPut("/{id}", UpdateSize)
             .Validator<UpdateSizeRequest>();
 
         group.MapDelete("/{id}", DeleteSize);

@@ -20,10 +20,10 @@ namespace PizzaCleanApp.API.Modules
 
             group.MapGet("/{id}", GetPizzaById);
 
-            ((RouteHandlerBuilder)group.MapPut("/{id}", UpdatePizza))
+            group.MapPut("/{id}", UpdatePizza)
                 .Validator<UpdatePizzaRequest>();
 
-            ((RouteHandlerBuilder)group.MapPost("", CreatePizza))
+            group.MapPost("", CreatePizza)
                 .Validator<CreatePizzaRequest>();
 
             group.MapDelete("/{id}", DeletePizza);

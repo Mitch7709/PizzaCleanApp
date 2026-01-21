@@ -23,6 +23,7 @@ using PizzaCleanApp.Core.Features.Users.Register;
 using PizzaCleanApp.Core.Features.Users.Login;
 using PizzaCleanApp.Core.Features.Users;
 using PizzaCleanApp.Infrastructure.Identity;
+using PizzaCleanApp.API.Shared;
 
 namespace PizzaCleanApp.API.Extensions
 {
@@ -39,6 +40,7 @@ namespace PizzaCleanApp.API.Extensions
             services.AddTransient<LoginUseCase>();
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserContext, UserContext>();
 
             services.AddValidatorsFromAssemblyContaining<CreatePizzaValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdatePizzaValidator>();

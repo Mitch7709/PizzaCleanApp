@@ -20,10 +20,10 @@ public class ToppingModule : IModule
 
         group.MapGet("/{id}", GetToppingById);
 
-        ((RouteHandlerBuilder)group.MapPost("", CreateTopping))
+        group.MapPost("", CreateTopping)
             .Validator<CreateToppingRequest>();
 
-        ((RouteHandlerBuilder)group.MapPut("/{id}", UpdateTopping))
+        group.MapPut("/{id}", UpdateTopping)
             .Validator<UpdateToppingRequest>();
 
         //group.MapDelete("/{id}", DeleteTopping);

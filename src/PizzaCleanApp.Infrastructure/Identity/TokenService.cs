@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PizzaCleanApp.Core.Features.Users;
 using PizzaCleanApp.Core.Models;
@@ -13,10 +14,10 @@ namespace PizzaCleanApp.Infrastructure.Identity
         private readonly UserManager<AppUser> _userManager;
         private readonly JwtOptions _jwtOptions;
 
-        public TokenService(UserManager<AppUser> userManager, JwtOptions jwtOptions)
+        public TokenService(UserManager<AppUser> userManager, IOptions<JwtOptions> jwtOptions)
         {
             _userManager = userManager;
-            _jwtOptions = jwtOptions;
+            _jwtOptions = jwtOptions.Value;
         }
 
         public async Task<string> GenerateToken(AppUser user)

@@ -43,7 +43,7 @@ namespace PizzaCleanApp.Infrastructure.Identity
                 issuer: _jwtOptions.Issuer,
                 audience: _jwtOptions.Audience,
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(_jwtOptions.ExpirationInDays),
+                expires: DateTime.UtcNow.AddDays(_jwtOptions.ExpirationInDays),
                 signingCredentials: credentials
             );
 

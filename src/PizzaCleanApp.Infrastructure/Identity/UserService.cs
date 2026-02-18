@@ -33,13 +33,13 @@ namespace PizzaCleanApp.Infrastructure.Identity
             return passwordMatch ? user : null;
         }
 
-        public async Task<Result<string>> Register(AppUser user, string password)
+        public async Task<Result<string>> Register(AppUser user, string password, string role)
         {
             var result = await _userManager.CreateAsync(user, password);
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "User");
+                await _userManager.AddToRoleAsync(user, role);
                 return user.Id;
             }
 

@@ -26,7 +26,7 @@ public class RegisterUseCase
 
         var user = new AppUser(request.Email, request.FirstName, request.LastName);
 
-        var result = await _userService.Register(user, request.Password);
+        var result = await _userService.Register(user, request.Password, request.Role);
         if (result.IsFailure)
         {
             return Result.Failure(result.ErrorType.Value, result.ErrorMessage);

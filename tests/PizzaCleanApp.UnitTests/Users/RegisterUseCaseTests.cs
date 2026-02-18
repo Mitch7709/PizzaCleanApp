@@ -16,6 +16,7 @@ public class RegisterUseCaseTests
         var request = new RegisterRequest(
             Email: "newuser@example.com",
             Password: "Password123",
+            Role: "Admin",
             FirstName: "New",
             LastName: "User");
 
@@ -27,8 +28,9 @@ public class RegisterUseCaseTests
         var saved = await setup.UserManager.FindByEmailAsync("newuser@example.com");
         saved.ShouldNotBeNull();
         var roles = await setup.UserManager.GetRolesAsync(saved!);
-        roles.ShouldContain("User"); // role applied by UserService.Register
+        roles.ShouldContain(request.Role); // role applied by UserService.Register
     }
+
 
     private static RegisterUseCase CreateUseCase(IUserService userService, ITokenService tokenService)
     {

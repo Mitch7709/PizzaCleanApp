@@ -50,6 +50,14 @@ internal class IdentityTestSetup : IDisposable
             ExpirationInDays = 1
         };
 
+        services.AddOptions<JwtOptions>().Configure(options =>
+        {
+            options.Key = jwtOptions.Key;
+            options.Issuer = jwtOptions.Issuer;
+            options.Audience = jwtOptions.Audience;
+            options.ExpirationInDays = jwtOptions.ExpirationInDays;
+        });
+
         services.AddSingleton(jwtOptions);
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITokenService, TokenService>();
